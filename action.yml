@@ -1,0 +1,6 @@
+name: 'ica lint'
+author: 'Dmitrii Kurkin'
+description: 'Github Action that checks code with ICA linter tool'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
