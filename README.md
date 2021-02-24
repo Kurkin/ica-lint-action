@@ -49,15 +49,13 @@ mis.emplace(1, std::string{"one"}); // OK
         <td>
             <pre lang="cpp">
 std::map<int, bool> m;
-
-auto it = m.begin(), end = m.end();
+</br>auto it = m.begin(), end = m.end();
 for (; it != end; ++it) {
     if (it->first == 123) {
         m.erase(it); // warning
     }
 }
-
-auto it = m.begin(), end = m.end();
+</br>auto it = m.begin(), end = m.end();
 for (; it != end; ++it) {
     if (it->first == 123) {
         m.erase(it); // no warning
@@ -74,16 +72,14 @@ for (; it != end; ++it) {
         </td>
         <td>
             <pre lang="cpp">
-
-// Inefficient:
+</br>// Inefficient:
 auto it = map.find(key);
 if (it == map.end()) {
    map.insert(key, value);
 } else {
    it->second = value;
 }
- 
-// Efficient:
+ </br>// Efficient:
 auto [it, inserted] = map.emplace(key, value);
 if (!inserted) {
    it->second = value;
@@ -118,11 +114,9 @@ int get_min(int l, int r) noexcept
             <pre lang="cpp">
 void func(const char *);
 void func(std::string_view);
-
-std::string key = "key";
+</br>std::string key = "key";
 func(key.c_str()); // warning
-
-func(key) // ok
+</br>func(key) // ok
             </pre>
         </td>
     </tr>
@@ -145,8 +139,7 @@ struct random_struct
     random_struct()
         : m_rand_engine(std::random_device{}()) // construct random device and call to get seed for random engine construction
     {}
-
-    int get_rand(int from, int to)
+</br>    int get_rand(int from, int to)
     {
         std::uniform_int_distribution<int> distribution(from, to); // distribution construction is quite cheap
         return distribution(m_rand_engine);
@@ -166,8 +159,7 @@ private:
             <pre lang="cpp">
 std::vector<int> from;
 std::vector<int> to;
-
-for (auto & el : from) { // warning
+</br>for (auto & el : from) { // warning
     to.push_back(el); // causes warning
 }
             </pre>
@@ -202,16 +194,14 @@ void rvalue_is_never_moved(int && i) {} // warning
             <pre lang="cpp">
 template <class T>
 auto get_rvalue(T & t) { return std::move(t); } // 'move' invalidates 't'
-
-void foo(const std::string s)
+</br>void foo(const std::string s)
 {
     auto substr = s.substr(1); // move of rvalue
     foo(std::move(substr)); // move to const lvalue
     int a = 3, b;
     b = std::move(a) // move of trivial type
 }
-
-void boo(const std::string && s) {} // const rvalue parameter
+</br>void boo(const std::string && s) {} // const rvalue parameter
             </pre>
         </td>
     </tr>
@@ -246,26 +236,20 @@ private:
 // good iterator
 struct iterator
 {
-
-    using value_type = long;
+</br>    using value_type = long;
     using reference = value_type &;
     using pointer = value_type *;
     using difference_type = std::ptrdiff_t;
     using iterator_category = std::bidirectional_iterator_tag;
-
-    iterator(const iterator &) = default;
+</br>    iterator(const iterator &) = default;
     iterator & operator = (const iterator &) = default;
-
-    reference operator * ();
+</br>    reference operator * ();
     pointer operator -> ();
-
-    iterator & operator ++ ();
+</br>    iterator & operator ++ ();
     iterator operator ++ (int);
-
-    iterator & operator -- ();
+</br>    iterator & operator -- ();
     iterator operator -- (int);
-
-    bool operator == (const iterator &) const;
+</br>    bool operator == (const iterator &) const;
     bool operator != (const iterator &) const;
 };
             </pre>
@@ -327,15 +311,11 @@ private:
             <pre lang="cpp">
 // file.h
 #pragma once
-
-inline static int a; // warning
-
-namespace { int b; } // warning
-
-// file.cpp
+</br>inline static int a; // warning
+</br>namespace { int b; } // warning
+</br>// file.cpp
 static int c = 42; // will probably be judged, but ok
-
-static void local_func() {} // warning
+</br>static void local_func() {} // warning
             </pre>
         </td>
     </tr>
@@ -349,8 +329,7 @@ static void local_func() {} // warning
         <td>
             <pre lang="cpp">
 const int foo() { return 42; } // warning
-
-struct Iterator
+</br>struct Iterator
 {
     Iterator operator ++ ()
     {
