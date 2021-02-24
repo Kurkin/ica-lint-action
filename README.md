@@ -15,8 +15,7 @@
             <pre lang="cpp">
 char c = getchar();
 bool b = std::isalpha(c); // warning
-
-int count_alphas(const std::string& s)
+</br>int count_alphas(const std::string& s)
 {
     return std::count_if(s.begin(), s.end(),
                     // static_cast<int(*)(int)>(std::isalpha)         // wrong
